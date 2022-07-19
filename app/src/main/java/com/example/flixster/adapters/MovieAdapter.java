@@ -1,19 +1,25 @@
 package com.example.flixster.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.flixster.DetailActivity;
 import com.example.flixster.R;
 import com.example.flixster.models.Movie;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -22,8 +28,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
     Context context;
     List<Movie> movies;
     View movieView;
-
-
 
     public MovieAdapter(Context context, List<Movie> movies) {
         this.context = context;
@@ -83,7 +87,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         TextView tvTitle;
         TextView tvOverView;
         ImageView ivPoster;
-//        public boolean types;
+        RelativeLayout container;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -91,6 +95,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvOverView = itemView.findViewById(R.id.tvOverview);
             ivPoster = itemView.findViewById(R.id.ivPoster);
+            container = itemView.findViewById(R.id.container);
 
         }
 
@@ -127,47 +132,19 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
                     .placeholder(R.drawable.loadind1)
                     .error(R.drawable.error)
                     .into(ivPoster);
+            // 1. Register click Listener on the whole row
+
+            container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // 2. Navigate to a new activity on tap
+//                    Toast.makeText(context, movie.getTitle(), Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(context, DetailActivity.class);
+                    i.putExtra("movie", Parcels.wrap(movie));
+                    context.startActivity(i);
+                }
+            });
         }
-
-
-
-//        public void bind(Movie movie) {
-//
-//                if (movie.getVote_average() > 5){
-//                    tvTitle.setText(movie.getTitle());
-//                    tvOverView.setText(movie.getOverView());
-//                    // render images
-//                    String imageUrl;
-//                    if (context.getResources().getConfiguration().orientation != Configuration.ORIENTATION_PORTRAIT) {
-//                        imageUrl = movie.getBackDropPath();
-//                    } else {
-//                        imageUrl = movie.getPosterPath();
-//                    }
-//
-//
-//                    Glide.with(context)
-//                            .load(imageUrl)
-//                            .placeholder(R.drawable.placee_holder)
-//                            .error(R.drawable.error)
-//                            .into(ivPoster);
-//
-//                } else {
-//                    types = true;
-//                    // render images
-//                    String imageUrl;
-//                    imageUrl = movie.getBackDropPath();
-//
-//
-//                    Glide.with(context)
-//                            .load(imageUrl)
-//                            .placeholder(R.drawable.placee_holder)
-//                            .error(R.drawable.error)
-//                            .into(ivPoster);
-//
-//                }
-//
-//            }
-
 
     }
 

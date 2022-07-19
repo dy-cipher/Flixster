@@ -3,10 +3,11 @@ package com.example.flixster.models;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Parcel
 public class Movie {
 
     double vote_average;
@@ -14,6 +15,10 @@ public class Movie {
     String posterPath;
     String title;
     String overView;
+
+    public Movie() {
+        // public constructor needed by the parceler library
+    }
 
     public Movie(JSONObject jsonObject) throws JSONException {
         backDropPath = jsonObject.getString("backdrop_path");

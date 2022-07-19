@@ -10,6 +10,7 @@
     app:cardUseCompatPadding="true">
 
     <RelativeLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="265dp">
 
@@ -28,11 +29,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_toEndOf="@+id/ivPoster"
-            android:text="TextView"
-            android:textSize="18sp"
-            android:textColor="@color/teal_700"
-            android:textStyle="bold"
             android:elevation="@dimen/cardview_default_radius"
+            android:text="TextView"
+            android:textColor="@color/teal_700"
+            android:textSize="18sp"
+            android:textStyle="bold"
             tools:text="Minions: The Rise of Gru"
             tools:visibility="visible" />
 
@@ -44,10 +45,10 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:layout_toEndOf="@+id/ivPoster"
-            android:text="TextView"
-            android:textSize="16sp"
-            android:textColor="@color/white"
             android:fontFamily="sans-serif"
+            android:text="TextView"
+            android:textColor="@color/white"
+            android:textSize="16sp"
             tools:text="A fanboy of a supervillain supergroup known as the Vicious 6, Gru hatches a plan to become evil enough to join them, with the backup of his followers, the Minions." />
     </RelativeLayout>
 
