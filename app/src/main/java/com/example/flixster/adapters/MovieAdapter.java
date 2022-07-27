@@ -119,9 +119,13 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 imageUrl = movie.getPosterPath();
 
             }
+
+            int radius = 30;
             Glide.with(context)
                     .load(imageUrl)
                     .placeholder(R.drawable.loadind1)
+                    .centerCrop()
+                    .transform(new RoundedCorners(radius))
                     .error(R.drawable.error)
                     .into(ivPoster);
 
@@ -166,13 +170,13 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             // render images
             String imageUrl = movie.getBackDropPath();
 
-//            ivPoster.setImageResource(R.drawable.play);
-
-            double radius = 30;
+            int radius = 30;
             int margin = 10;
             Glide.with(context)
                     .load(imageUrl)
                     .placeholder(R.drawable.loadind1)
+                    .centerCrop()
+                    .transform(new RoundedCorners(radius))
                     .error(R.drawable.error)
                     .into(ivPoster1);
 
