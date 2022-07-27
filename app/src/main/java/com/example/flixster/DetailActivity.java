@@ -2,6 +2,7 @@ package com.example.flixster;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.RatingBar;
@@ -30,6 +31,7 @@ public class DetailActivity extends YouTubeBaseActivity {
     TextView tvOverview1;
     RatingBar ratingBar;
     YouTubePlayerView youTubePlayerView;
+    Context context;
 
 
     @Override
