@@ -147,12 +147,14 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     public class ViewHolder1 extends RecyclerView.ViewHolder {
         ImageView ivPoster1;
+        ImageView ivIcon;
         CardView container;
 
         public ViewHolder1(@NonNull View itemView) {
             super(itemView);
 
             ivPoster1 = itemView.findViewById(R.id.ivPoster1);
+            ivIcon = itemView.findViewById(R.id.ivIcon);
             container = itemView.findViewById(R.id.cardview);
         }
 
@@ -173,6 +175,8 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     .placeholder(R.drawable.loadind1)
                     .error(R.drawable.error)
                     .into(ivPoster1);
+
+            ivIcon.setImageResource(R.drawable.play);
             // 1. Register click Listener on the whole row
 
             container.setOnClickListener(new View.OnClickListener() {
