@@ -7,9 +7,11 @@ import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,7 +29,7 @@ import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    Context context;
+    public static Context context;
     List<Movie> movies;
     ItemMovieBinding itemMovieBinding;
     Item1MovieBinding item1MovieBinding;
@@ -109,26 +111,26 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             // render images
             binding.setMovie(movie);
             binding.executePendingBindings();
-            String imageUrl;
-            binding.tvTitle.setText(movie.getTitle());
-            binding.tvOverview.setText(movie.getOverView());
-
-
-            if(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
-                imageUrl = movie.getBackDropPath();
-            }
-            else {
-                imageUrl = movie.getPosterPath();
-            }
-
-            int radius = 30;
-            Glide.with(context)
-                    .load(imageUrl)
-                    .placeholder(R.drawable.load)
-                    .centerCrop()
-                    .transform(new RoundedCorners(radius))
-                    .error(R.drawable.error)
-                    .into(binding.ivPoster);
+//            String imageUrl;
+//            binding.tvTitle.setText(movie.getTitle());
+//            binding.tvOverview.setText(movie.getOverView());
+//
+//
+//            if(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+//                imageUrl = movie.getBackDropPath();
+//            }
+//            else {
+//                imageUrl = movie.getPosterPath();
+//            }
+//
+//            int radius = 30;
+//            Glide.with(context)
+//                    .load(imageUrl)
+//                    .placeholder(R.drawable.load)
+//                    .centerCrop()
+//                    .transform(new RoundedCorners(radius))
+//                    .error(R.drawable.error)
+//                    .into(binding.ivPoster);
 
 
 
@@ -161,20 +163,20 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         public void bind1(Movie movie) {
 
             // render images
-            String imageUrl = movie.getBackDropPath();
+//            String imageUrl = movie.getBackDropPath();
             binding.setMovie(movie);
             binding.executePendingBindings();
 
 
-            int radius = 30;
-            Glide.with(context)
-                    .load(imageUrl)
-                    .placeholder(R.drawable.load)
-                    .centerCrop()
-                    .transform(new RoundedCorners(radius))
-                    .error(R.drawable.error)
-                    .into(binding.ivPoster1);
-
+//            int radius = 30;
+//            Glide.with(context)
+//                    .load(imageUrl)
+//                    .placeholder(R.drawable.load)
+//                    .centerCrop()
+//                    .transform(new RoundedCorners(radius))
+//                    .error(R.drawable.error)
+//                    .into(binding.ivPoster1);
+//
             binding.ivIcon.setImageResource(R.drawable.plays);
             // 1. Register click Listener on the whole row
 
@@ -193,6 +195,35 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
 
+    }
+
+
+    public static class BindingAdapterUtils {
+        @BindingAdapter({"imageUrl"})
+        public static void loadImage(ImageView view, String url) {
+            int radius = 30;
+            Glide.with(context)
+                    .load(url)
+                    .placeholder(R.drawable.load)
+                    .centerCrop()
+                    .transform(new RoundedCorners(radius))
+                    .error(R.drawable.error)
+                    .into(view);
+        }
+
+
+
+        @BindingAdapter({"imageUrl1"})
+        public static void loadImage1(ImageView view, String url) {
+            int radius = 30;
+            Glide.with(context)
+                    .load(url)
+                    .placeholder(R.drawable.load)
+                    .centerCrop()
+                    .transform(new RoundedCorners(radius))
+                    .error(R.drawable.error)
+                    .into(view);
+        }
     }
 
 }

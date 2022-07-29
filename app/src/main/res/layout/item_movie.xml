@@ -31,6 +31,7 @@
                 android:layout_marginStart="0dp"
                 android:layout_marginTop="0dp"
                 android:scaleType="centerCrop"
+                app:imageUrl="@{Movie.posterPath}"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
@@ -40,7 +41,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_toEndOf="@+id/ivPoster"
                 android:elevation="@dimen/cardview_default_radius"
-                android:text="TextView"
+                android:text="@{Movie.title}"
                 android:textColor="@color/teal_700"
                 android:textSize="@dimen/textview_size"
                 android:textStyle="bold"
@@ -56,7 +57,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_toEndOf="@+id/ivPoster"
                 android:fontFamily="sans-serif"
-                android:text="TextView"
+                android:text="@{Movie.overView}"
                 android:textColor="@color/teal_200"
                 android:textSize="@dimen/textview2_size"
                 tools:text="A fanboy of a supervillain supergroup known as the Vicious 6, Gru hatches a plan to become evil enough to join them, with the backup of his followers, the Minions." />

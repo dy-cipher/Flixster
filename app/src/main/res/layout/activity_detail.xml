@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="movie"
+            type="com.example.flixster.models.Movie" />
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,10 +38,10 @@
             android:layout_marginLeft="@dimen/layout_marginLeft"
             android:layout_marginBottom="10dp"
             android:fontFamily="sans-serif"
-            android:text="TextView"
             android:textAlignment="textStart"
             android:textColor="@color/teal_700"
             android:textSize="@dimen/textview_size"
+            android:text="@{movie.title}"
             tools:text="Thor: Love and Thunder" />
 
         <RatingBar
@@ -48,7 +54,7 @@
             android:foregroundTintMode="src_over"
             android:numStars="10"
             android:progressBackgroundTint="@color/teal_200"
-            android:rating="8.5"
+            android:rating="@{(float)movie.vote_average}"
             android:shadowColor="@color/white" />
 
 
@@ -67,7 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:textColor="@color/teal_200"
-                android:text="TextView"
+                android:text="@{movie.overView}"
                 android:textAlignment="textStart"
 
                 android:layout_margin="10dp"

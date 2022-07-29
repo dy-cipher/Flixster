@@ -6,27 +6,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.util.Log;
 
-import com.codepath.asynchttpclient.AsyncHttpClient;
-import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.flixster.R;
 import com.example.flixster.adapters.MovieAdapter;
 import com.example.flixster.databinding.ActivityMainBinding;
 import com.example.flixster.models.Movie;
+import com.example.flixster.network.NetworkVideoClient;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.Headers;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,31 +41,10 @@ public class MainActivity extends AppCompatActivity {
 
         // set a layout adapter on the recycler view
         rvMovies.setLayoutManager(new LinearLayoutManager(this));
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.get(NOW_PLAYING_URL, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Headers headers, JSON json) {
-                Log.d(TAG, "Succeed");
-                JSONObject jsonObject = json.jsonObject;
 
-                try {
-                    JSONArray results = jsonObject.getJSONArray("results");
-                    Log.i(TAG, "Results: " + results.toString());
-                    movies.addAll(Movie.fromJsonArray(results));
-                    movieAdapter.notifyDataSetChanged();
-                    Log.i(TAG, "Movies: " + movies.toString());
-                } catch (JSONException e) {
-                    Log.e(TAG, "hit  json exception");
-                    e.printStackTrace();
-
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                Log.d(TAG, "Failed");
-            }
-        });
+        // using network class for cleaner code
+        NetworkVideoClient networkVideoClient = new NetworkVideoClient(NOW_PLAYING_URL);
+        networkVideoClient.mainActivityClient((ArrayList) movies, movieAdapter, TAG);
 
     }
 }
