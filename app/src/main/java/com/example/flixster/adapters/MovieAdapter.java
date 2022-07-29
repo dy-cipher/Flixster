@@ -3,7 +3,6 @@ package com.example.flixster.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,7 +93,7 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     // viewHolder
-
+// First class viewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         // this will be used by onBindViewHolder()
@@ -111,28 +110,6 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             // render images
             binding.setMovie(movie);
             binding.executePendingBindings();
-//            String imageUrl;
-//            binding.tvTitle.setText(movie.getTitle());
-//            binding.tvOverview.setText(movie.getOverView());
-//
-//
-//            if(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
-//                imageUrl = movie.getBackDropPath();
-//            }
-//            else {
-//                imageUrl = movie.getPosterPath();
-//            }
-//
-//            int radius = 30;
-//            Glide.with(context)
-//                    .load(imageUrl)
-//                    .placeholder(R.drawable.load)
-//                    .centerCrop()
-//                    .transform(new RoundedCorners(radius))
-//                    .error(R.drawable.error)
-//                    .into(binding.ivPoster);
-
-
 
             binding.container.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -151,7 +128,7 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     }
 
-
+// second class viewHolder
     public class ViewHolder1 extends RecyclerView.ViewHolder {
         private final Item1MovieBinding binding;
 
@@ -168,15 +145,6 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             binding.executePendingBindings();
 
 
-//            int radius = 30;
-//            Glide.with(context)
-//                    .load(imageUrl)
-//                    .placeholder(R.drawable.load)
-//                    .centerCrop()
-//                    .transform(new RoundedCorners(radius))
-//                    .error(R.drawable.error)
-//                    .into(binding.ivPoster1);
-//
             binding.ivIcon.setImageResource(R.drawable.plays);
             // 1. Register click Listener on the whole row
 

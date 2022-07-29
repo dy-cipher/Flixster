@@ -11,10 +11,7 @@ import java.util.List;
 public class Movie {
 
     double vote_average;
-    String backDropPath;
-    String posterPath;
-    String title;
-    String overView;
+    String backDropPath, posterPath, title, overView;
     int movieId;
 
     public Movie() {

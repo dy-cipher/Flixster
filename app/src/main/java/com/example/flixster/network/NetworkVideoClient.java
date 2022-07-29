@@ -84,7 +84,7 @@ public class NetworkVideoClient {
 
             @Override
             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-
+                Log.d(TAG, "Failed");
             }
         });
 
