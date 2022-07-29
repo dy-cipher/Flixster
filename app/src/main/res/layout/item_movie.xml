@@ -1,56 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="300dp"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="9dp"
-    app:cardBackgroundColor="@color/black"
-    app:cardUseCompatPadding="true">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
-        android:id="@+id/container"
-        android:transitionName="poster"
+    <data>
+        <variable
+            name="Movie"
+            type="com.example.flixster.models.Movie">
+        </variable>
+    </data>
+
+
+    <androidx.cardview.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="265dp">
+        android:layout_height="300dp"
+        app:cardCornerRadius="@dimen/corner_radius"
+        app:cardElevation="@dimen/card_elevation"
+        app:cardBackgroundColor="@color/black"
+        app:cardUseCompatPadding="true">
 
-        <ImageView
-            android:id="@+id/ivPoster"
-            android:layout_width="160dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="0dp"
-            android:scaleType="centerCrop"
-            tools:srcCompat="@tools:sample/avatars" />
+        <RelativeLayout
+            android:id="@+id/container"
+            android:transitionName="poster"
+            android:layout_width="match_parent"
+            android:layout_height="265dp">
 
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_toEndOf="@+id/ivPoster"
-            android:elevation="@dimen/cardview_default_radius"
-            android:text="TextView"
-            android:textColor="@color/teal_700"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            tools:text="Minions: The Rise of Gru"
-            tools:visibility="visible" />
+            <ImageView
+                android:id="@+id/ivPoster"
+                android:layout_width="160dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:scaleType="centerCrop"
+                tools:srcCompat="@tools:sample/avatars" />
 
-        <TextView
-            android:id="@+id/tvOverview"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/tvTitle"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_toEndOf="@+id/ivPoster"
-            android:fontFamily="sans-serif"
-            android:text="TextView"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            tools:text="A fanboy of a supervillain supergroup known as the Vicious 6, Gru hatches a plan to become evil enough to join them, with the backup of his followers, the Minions." />
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@+id/ivPoster"
+                android:elevation="@dimen/cardview_default_radius"
+                android:text="TextView"
+                android:textColor="@color/teal_700"
+                android:textSize="@dimen/textview_size"
+                android:textStyle="bold"
+                tools:text="Minions: The Rise of Gru"
+                tools:visibility="visible" />
 
-</androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/tvOverview"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tvTitle"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@+id/ivPoster"
+                android:fontFamily="sans-serif"
+                android:text="TextView"
+                android:textColor="@color/teal_200"
+                android:textSize="@dimen/textview2_size"
+                tools:text="A fanboy of a supervillain supergroup known as the Vicious 6, Gru hatches a plan to become evil enough to join them, with the backup of his followers, the Minions." />
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

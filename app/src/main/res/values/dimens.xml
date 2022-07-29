@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="textview_height">25dp</dimen>
+    <dimen name="textview_width">150dp</dimen>
+    <dimen name="ball_radius">30dp</dimen>
+    <dimen name="font_size">16sp</dimen>
+    <dimen name="textview_size">20sp</dimen>
+    <dimen name="textview2_size">15sp</dimen>
+    <dimen name="layout_marginLeft">25dp</dimen>
+    <dimen name="layout_margin">10dp</dimen>
+    <dimen name="corner_radius">16dp</dimen>
+    <dimen name="card_elevation">10dp</dimen>
+    <dimen name="glide_radius">5dp</dimen>
+
+
+</resources>

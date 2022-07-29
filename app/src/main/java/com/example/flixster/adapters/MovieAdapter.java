@@ -7,21 +7,18 @@ import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.example.flixster.DetailActivity;
-import com.example.flixster.MainActivity;
+import com.example.flixster.activities.DetailActivity;
 import com.example.flixster.R;
+import com.example.flixster.databinding.Item1MovieBinding;
+import com.example.flixster.databinding.ItemMovieBinding;
 import com.example.flixster.models.Movie;
 
 import org.parceler.Parcels;
@@ -32,7 +29,9 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     Context context;
     List<Movie> movies;
-    View movieView;
+    ItemMovieBinding itemMovieBinding;
+    Item1MovieBinding item1MovieBinding;
+
 
     public MovieAdapter(Context context, List<Movie> movies) {
         this.context = context;
@@ -45,14 +44,17 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        RecyclerView.ViewHolder viewHolder;
-        if (viewType == 2) {
-            movieView = LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false);
-            return new ViewHolder(movieView);
-        } else {
-            movieView = LayoutInflater.from(context).inflate(R.layout.item1_movie, parent, false);
-            return new ViewHolder1(movieView);
-        }
+            if (viewType == 2) {
+
+                LayoutInflater layoutInflater = LayoutInflater.from(context);
+                itemMovieBinding = DataBindingUtil.inflate(layoutInflater, R.layout.item_movie, parent, false);
+                return new ViewHolder(itemMovieBinding);
+
+        }   else {
+                LayoutInflater layoutInflater = LayoutInflater.from(context);
+                item1MovieBinding = DataBindingUtil.inflate(layoutInflater, R.layout.item1_movie, parent, false);
+                return new ViewHolder1(item1MovieBinding);
+                }
 //        return new ViewHolder(movieView);
     }
 
@@ -92,24 +94,24 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     // viewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTitle;
-        TextView tvOverView;
-        ImageView ivPoster;
-        RelativeLayout container;
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            tvTitle = itemView.findViewById(R.id.tvTitle);
-            tvOverView = itemView.findViewById(R.id.tvOverview);
-            ivPoster = itemView.findViewById(R.id.ivPoster);
-            container = itemView.findViewById(R.id.container);
+        // this will be used by onBindViewHolder()
+        private final ItemMovieBinding binding;
+
+
+
+        public ViewHolder(ItemMovieBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
 
         public void bind(Movie movie) {
             // render images
+            binding.setMovie(movie);
+            binding.executePendingBindings();
             String imageUrl;
-            tvTitle.setText(movie.getTitle());
-            tvOverView.setText(movie.getOverView());
+            binding.tvTitle.setText(movie.getTitle());
+            binding.tvOverview.setText(movie.getOverView());
 
 
             if(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
@@ -117,21 +119,20 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             }
             else {
                 imageUrl = movie.getPosterPath();
-
             }
 
             int radius = 30;
             Glide.with(context)
                     .load(imageUrl)
-                    .placeholder(R.drawable.loadind1)
+                    .placeholder(R.drawable.load)
                     .centerCrop()
                     .transform(new RoundedCorners(radius))
                     .error(R.drawable.error)
-                    .into(ivPoster);
+                    .into(binding.ivPoster);
 
-//            ivPoster.setImageResource(R.drawable.play);
 
-            container.setOnClickListener(new View.OnClickListener() {
+
+            binding.container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     // 2. Navigate to a new activity on tap
@@ -139,7 +140,7 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     Intent i = new Intent(context, DetailActivity.class);
                     i.putExtra("movie", Parcels.wrap(movie));
                     ActivityOptionsCompat options = ActivityOptionsCompat.
-                            makeSceneTransitionAnimation((Activity)  context, ivPoster, "poster");
+                            makeSceneTransitionAnimation((Activity)  context, binding.ivPoster, String.valueOf(R.string.poster));
                     context.startActivity(i, options.toBundle());
 
                 }
@@ -150,40 +151,34 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
 
     public class ViewHolder1 extends RecyclerView.ViewHolder {
-        ImageView ivPoster1;
-        ImageView ivIcon;
-        CardView container;
+        private final Item1MovieBinding binding;
 
-        public ViewHolder1(@NonNull View itemView) {
-            super(itemView);
-
-            ivPoster1 = itemView.findViewById(R.id.ivPoster1);
-            ivIcon = itemView.findViewById(R.id.ivIcon);
-            container = itemView.findViewById(R.id.cardview);
+        public ViewHolder1(Item1MovieBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
-
-
-
 
         public void bind1(Movie movie) {
 
             // render images
             String imageUrl = movie.getBackDropPath();
+            binding.setMovie(movie);
+            binding.executePendingBindings();
+
 
             int radius = 30;
-            int margin = 10;
             Glide.with(context)
                     .load(imageUrl)
-                    .placeholder(R.drawable.loadind1)
+                    .placeholder(R.drawable.load)
                     .centerCrop()
                     .transform(new RoundedCorners(radius))
                     .error(R.drawable.error)
-                    .into(ivPoster1);
+                    .into(binding.ivPoster1);
 
-            ivIcon.setImageResource(R.drawable.play);
+            binding.ivIcon.setImageResource(R.drawable.plays);
             // 1. Register click Listener on the whole row
 
-            container.setOnClickListener(new View.OnClickListener() {
+            binding.cardview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     // 2. Navigate to a new activity on tap
@@ -191,7 +186,7 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     Intent i = new Intent(context, DetailActivity.class);
                     i.putExtra("movie", Parcels.wrap(movie));
                     ActivityOptionsCompat options = ActivityOptionsCompat.
-                            makeSceneTransitionAnimation((Activity)  context, ivPoster1, "poster");
+                            makeSceneTransitionAnimation((Activity)  context, binding.ivPoster1, String.valueOf(R.string.poster));
                     context.startActivity(i, options.toBundle());
                 }
             });

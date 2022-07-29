@@ -1,6 +1,7 @@
-package com.example.flixster;
+package com.example.flixster.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.example.flixster.R;
+import com.example.flixster.databinding.ActivityDetailBinding;
 import com.example.flixster.models.Movie;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
@@ -31,22 +34,20 @@ public class DetailActivity extends YouTubeBaseActivity {
     TextView tvOverview1;
     RatingBar ratingBar;
     YouTubePlayerView youTubePlayerView;
-    Context context;
+    private ActivityDetailBinding binding;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
 
-        tvTitle1 = findViewById(R.id.tvTitle1);
-        tvOverview1 = findViewById(R.id.tvOverview1);
-        ratingBar = findViewById(R.id.ratingBar);
-        youTubePlayerView = findViewById(R.id.player);
+        tvTitle1 = binding.tvTitle1;
+        tvOverview1 = binding.tvOverview1;
+        ratingBar = binding.ratingBar;
+        youTubePlayerView = binding.player;
 
-
-//        String title = getIntent().getStringExtra("title");
-        Movie movie = Parcels.unwrap(getIntent().getParcelableExtra("movie"));
+        Movie movie = Parcels.unwrap(getIntent().getParcelableExtra(getString(R.string.movie)));
         tvTitle1.setText(movie.getTitle());
         tvOverview1.setText(movie.getOverView());
         ratingBar.setRating((float) movie.getVote_average());
@@ -82,7 +83,7 @@ public class DetailActivity extends YouTubeBaseActivity {
         youTubePlayerView.initialize(YOUTUBE_API_KEY, new YouTubePlayer.OnInitializedListener() {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-                Log.d("DetailActivity", "onInitializationSuccess");
+                Log.d(getString(R.string.DetailActivity), "onInitializationSuccess");
                 if (movie.getVote_average() < 7) {
                     youTubePlayer.cueVideo(youtubeKey);
                 }
@@ -94,7 +95,7 @@ public class DetailActivity extends YouTubeBaseActivity {
 
             @Override
             public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-                Log.d("DetailActivity", "onInitializationFailure");
+                Log.d(getString(R.string.DetailActivity), "onInitializationFailure");
             }
         });
     }
